@@ -10,9 +10,9 @@ Notes:    Hand coded for Hybrid Training
 
 */
 
-
-#main {
-   border: 1em solid yellow;
+#footer {
+  background-color: lightgrey;
+  color: white;
 }
 
 #home {
@@ -24,19 +24,7 @@ Notes:    Hand coded for Hybrid Training
 }
 
 #manager {
-	border: 1em solid cyan;
-}
-
-
-.site-footer {
-   position: relative;
-   padding-top: 40px;
-   padding-bottom: 40px;
-   margin-top: 40px;
-   font-size: 12px;
-   line-height: 1.5;
-   color: #767676 ;
-   border-top: 1px solid #eee;
+	border: 1em solid yellow;
 }
 .form-signin .form-signin-heading, .form-signin .checkbox
 {
@@ -75,7 +63,7 @@ Notes:    Hand coded for Hybrid Training
 .account-wall
 {
     margin-top: 20px;
-    padding: 40px 0px 20px 0px;
+    padding: 50px;
     background-color: #f7f7f7;
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
