@@ -1,4 +1,5 @@
 var React = require('react');
+import ViewRepoManager from './ViewRepoManager.jsx';
 
 export default class SavedRepoComponent extends  React.Component{
 constructor(){
@@ -9,21 +10,20 @@ constructor(){
 }
 
 changeRepoArray(item){
-  var arr = this.state.news;
+  var arr = this.state.repo;
   var index = arr.findIndex(x => x._id==item._id)
   console.log("index of item deleted is "+index);
   arr.splice(index,1);
-  this.setState({news:arr});
+  this.setState({repo:arr});
 }
+
    getRepoArray(){
     var that = this;
     $.ajax({
        url: "http://localhost:8080/repos/view",
-       type: "GET",
-       dataType: 'JSON',
-    
+       type: "GET",    
        success : function(msg){
-       /*msg reprewsents JSON data of news headlines sent back by external API*/
+       /*msg reprewsents JSON data of repo headlines sent back by external API*/
        console.log("get Repo success");
        console.log(msg);
        that.setState({repo:msg});
@@ -47,7 +47,7 @@ console.log("inside favourite");
    <div className="container-fluid" id="fav">
       <h1>View 
       repo Saved Before</h1>
-      <ViewRepoManager newsArray={this.state.news} newsArrUpdate = {this.changeNewsArray}/>
+      <ViewRepoManager repoArray={this.state.repo} repoArrUpdate = {this.changeRepoArray}/>
    </div>
  );
 }

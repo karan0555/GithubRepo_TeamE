@@ -10,7 +10,7 @@ export default class DeleteButton extends React.Component{
 	deleteNewsFunction(){
      var that = this;
       $.ajax({
-        url: "http://localhost:8080/news/delete",
+        url: "http://localhost:8080/repos/delete",
         type: "DELETE",
         data : that.props.item,
         success : function(msg){

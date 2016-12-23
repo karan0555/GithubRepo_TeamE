@@ -12,12 +12,16 @@ git.findById(req.body.id,function(err,repoid)
 if(err)
 var userver=new git();
  if(req.body){
+
   var ownerObject = req.body.owner;
+
  userver.id=req.body.id;
  userver.name=req.body.name;
  userver.full_name=req.body.full_name;
  userver.html_url=req.body.html_url;
-userver.avatar_url=ownerObject.avatar_url;
+
+userver.avatar_url=req.body.avatar_url;
+
 userver.private=req.body.private;
 userver.ssh_url=req.body.ssh_url;
 userver.clone_url=req.body.clone_url;
@@ -60,21 +64,15 @@ console.log(request);
       res.send("no data found to delete");
     }
 });
-router.get('/view',isLoggedIn,function(req,res)
+router.get('/view',function(req,res)
 {
-
   git.find({},function(err,repo){
     if(err) {
       res.send(err);
       console.log('error ocuured');
     }
     else {
-     var gitobject={};
-      repo.forEach(function(gitrepo,ind){
-        gitobject[gitrepo.id]=gitrepo;
-
-      });
-      res.send(gitobject);
+      res.send(repo);
     }
   });
 });

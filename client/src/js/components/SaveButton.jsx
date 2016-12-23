@@ -8,12 +8,29 @@ constructor(){
 }
 
 saveNewsFunction(){
-    var that = this;
     console.log("inside save");
+    console.log(this.props.item);
+    var avatar_url=this.props.item.owner.avatar_url;
+    console.log("url is "+avatar_url);
+    
+    var objSend ={};
+    objSend.id = this.props.item.id;
+    objSend.name = this.props.item.name;
+    objSend.full_name = this.props.item.full_name;
+    objSend.html_url = this.props.item.html_url;
+    objSend.avatar_url = avatar_url;
+    objSend.private = this.props.item.private;
+    objSend.ssh_url = this.props.item.ssh_url;
+    objSend.clone_url = this.props.item.clone_url;
+    objSend.svn_url = this.props.item.svn_url;
+    objSend.description = this.props.item.description;
+    objSend.language = this.props.item.language;
+    objSend.comments = "this is comment";
+    var that = this;
       $.ajax({
         url: "http://localhost:8080/repos/save",
         type: "POST",
-        data : that.props.item,
+        data : objSend,
         success : function(res){
         /*msg represents JSON data of news headlines sent back by external API*/
           console.log("inside save success");

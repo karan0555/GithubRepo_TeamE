@@ -13,6 +13,6 @@ clone_url:String,
 svn_url:String,
 description:String,
 language:String,
-Comments:String
+comments:String
 });
 module.exports=mongoose.model('Gitrepo',GithubSchema);
