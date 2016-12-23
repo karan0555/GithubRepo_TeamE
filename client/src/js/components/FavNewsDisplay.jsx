@@ -1,13 +1,21 @@
 var React = require('react');
-import SaveButton from './SaveButton.jsx';
-export default class NewsDisplay extends  React.Component{
+import DeleteButton from './DeleteButton.jsx';
+import UpdateComponent from './UpdateComponent.jsx';
+export default class FavNewsDisplay extends  React.Component{
+constructor(){
+  super(); 
+  this.updateNewsArray = this.updateNewsArray.bind(this); 
+}
 
-render()
+updateNewsArray(item){
+  this.props.fxn(item);
+}
+
+render() 
 {
-console.log("Repo DISPLAY");
+console.log("FavNEWS DISPLAY");
 console.log(this.props.item);
-var repoItem = this.props.item;
-
+var newsItem = this.props.item;
  return(
    <div className="news-display jumbotron">
     <section>
@@ -27,6 +35,8 @@ var repoItem = this.props.item;
       </section>      
     </section>
   </div>
+      
+   </div>
  );
 }
 }

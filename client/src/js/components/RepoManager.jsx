@@ -16,8 +16,7 @@ render()
    <div>
        {
           this.props.repoArraySend.map(function(Item){
-            return(<div className="jumbotron manager"><RepoDisplay item={Item} />
-                    </div>)
+            return(<RepoDisplay item={Item} />)
             }
           )
         }

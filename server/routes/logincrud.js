@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var users=require('../model/users.js');
+var users=require('../models/users.js');
 var passport=require('passport');
 var Strategy=require('passport-local').Strategy;
 var connectflash=require('connect-flash');

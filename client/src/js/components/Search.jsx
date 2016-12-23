@@ -33,8 +33,26 @@ error: function(err){
 }
 
 starreddata(){
-var starredreposearch=document.GetElementById('userrepo');
-alert("starred seaqrch");
+var userreposearch=document.getElementById('userrepo').value;
+console.log("SEarched thing is "+userreposearch);
+this.props.repoSearch(userreposearch);
+var that = this;
+$.ajax({
+url: "https://api.github.com/search/repositories?q="+userreposearch+"&sort=forks&order=desc&per_page=10",
+type: "GET",
+dataType:'JSON',
+success : function(msg)
+{
+console.log("Searched Repo Successfully");
+var repoArrayGot = msg.items;
+that.props.repoArray(repoArrayGot);
+},
+error: function(err){
+  console.log("error");
+  console.log(err);
+  alert("Invalid Search");
+}
+});
 
 }
 
@@ -56,7 +74,7 @@ alert("starred seaqrch");
                                           </button>
                                       </span>
                                       <span className="input-group-btn">
-                                          <button className="btn btn-info btn-lg" type="button" >
+                                          <button className="btn btn-info btn-lg" type="button" onClick={this.starreddata}>
                                             Searchrepo  <i className="glyphicon glyphicon-search"></i>
                                           </button>
                                       </span>

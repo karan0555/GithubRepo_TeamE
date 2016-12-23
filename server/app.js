@@ -1,26 +1,27 @@
 var express = require('express');
 var path = require('path');
-var app = express();
-
-var webpackDevMiddleware = require("webpack-dev-middleware");
-var webpack = require("webpack");
-var webpackConfig = require("./webpack.config");
-var webpackHotMiddleware = require('webpack-hot-middleware');
-var compiler = webpack(webpackConfig);
-
-var passport=require('passport');
-var LocalStrategy =require('passport-local').Strategy;
-var connectflash=require('connect-flash');
-
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require("mongoose");
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var connectflash = require('connect-flash');
 
 var logincrud=require('./routes/logincrud');
 var repos=require('./routes/repocrud')
-var Users=require('./model/users.js');
+var Users=require('./models/users.js');
+
+var webpackDevMiddleware = require("webpack-dev-middleware");
+var webpack = require("webpack");
+var webpackConfig = require("../webpack.config");
+var webpackHotMiddleware = require('webpack-hot-middleware');
+
+var app = express();
+var compiler = webpack(webpackConfig);
+
 
 passport.serializeUser(function(user, done) {
 console.log("Serial");
@@ -46,7 +47,6 @@ function(username, password, done) {
 }
 ));
 
-
 app.use(webpackDevMiddleware(compiler, {
  publicPath: webpackConfig.output.publicPath,
    stats: {colors: true}, // Same as `output.publicPath` in most cases.
@@ -63,18 +63,12 @@ app.use(webpackHotMiddleware(compiler, {
    log: console.log,
 }))
 
-
-
-
-
-var mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost:27017/repos");
 var db=mongoose.connection;
 db.on('error',console.error.bind(console,'connection error'));
 db.once('open',function(){
  console.log("connected to mongodbsuccessfully");
 });
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -86,16 +80,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, './client/assets')));
-app.use(require('express-session')({ secret: 'accesskey'}));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('express-session')({secret: 'accesskey'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(connectflash());
 
-
 app.use('/login',logincrud);
 app.use('/repos',repos);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -103,8 +95,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
 
 // error handler
 app.use(function(err, req, res, next) {

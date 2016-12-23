@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {browserHistory} from 'react-router';
 
 export default class Register extends React.Component{
 constructor(){
@@ -9,21 +9,28 @@ this.savedetails=this.savedetails.bind(this);
 savedetails(){
 var uname=document.getElementById('username').value;
 var pass=document.getElementById('password').value;
-
+var userObject = {};
+		userObject.username = uname;
+		userObject.password = pass;
    $.ajax({
-   url: "http://localhost:8086/users/save",
-   type: "POST",
-   data:'username='+uname+'&password='+pass,
-   success : function(msg)
-   {
-   alert("successfully entered to database");
-   console.log("successfully entered to database");
-     browserHistory.push('/login');
-   }.bind(this),
-   error: function(err){
-     alert("not entered into database");
-  }.bind(this)
- });
+	       url: "http://localhost:8080/login/save",
+	       type: "POST",
+	       data: userObject,
+	       success : function(msg){
+	       /*msg reprewsents JSON data of news headlines sent back by external API*/
+	       console.log("in Register");
+	       console.log(msg);
+	       alert("registered Successfully");
+	       console.log("login success");
+	       browserHistory.push('/login');
+	       },
+
+	       error: function(err){
+	       console.log("Register fail");
+	       alert('Not Registered');
+	       console.log(err);
+      }
+	});
 }
 render()
 {
@@ -92,7 +99,7 @@ return(
 						</div>
 
 						<div className="form-group ">
-							<button type="button" className="btn btn-primary btn-lg btn-block login-button">Register</button>
+							<button type="button" className="btn btn-primary btn-lg btn-block login-button" onClick={this.savedetails}>Register</button>
 						</div>
 					</form>
 				</div>

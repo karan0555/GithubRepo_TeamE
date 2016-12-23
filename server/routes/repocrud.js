@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var git= require('../model/reposchema.js');
+var git= require('../models/reposchema.js');
 
 
 //end point http://localhost:8085/repo/save
@@ -12,11 +12,12 @@ git.findById(req.body.id,function(err,repoid)
 if(err)
 var userver=new git();
  if(req.body){
+  var ownerObject = req.body.owner;
  userver.id=req.body.id;
  userver.name=req.body.name;
  userver.full_name=req.body.full_name;
  userver.html_url=req.body.html_url;
-userver.avatar_url=req.body.owner.avatar_url;
+userver.avatar_url=ownerObject.avatar_url;
 userver.private=req.body.private;
 userver.ssh_url=req.body.ssh_url;
 userver.clone_url=req.body.clone_url;
