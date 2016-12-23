@@ -3,11 +3,11 @@ import React from 'react';
 export default class DeleteButton extends React.Component{
 	constructor(){
 		super();
-		this.deleteNewsFunction = this.deleteNewsFunction.bind(this);
+		this.deleteRepoFunction = this.deleteRepoFunction.bind(this);
     this.showAlert = this.showAlert.bind(this);
 	}
 
-	deleteNewsFunction(){
+	deleteRepoFunction(){
      var that = this;
       $.ajax({
         url: "http://localhost:8080/repos/delete",
@@ -37,7 +37,7 @@ export default class DeleteButton extends React.Component{
 		console.log(this.props);
 		return(
 			<span>
-				<button className="btn-warning" onClick={this.deleteNewsFunction}>Delete</button>
+				<button className="btn-warning" onClick={this.deleteRepoFunction}>Delete</button>
 			</span>
 		)
 	}

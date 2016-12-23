@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d5a279178bc2a496da82"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4aa7a811edd6bd3ea0e9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -13495,14 +13495,14 @@
 	
 	    var _this = _possibleConstructorReturn(this, (DeleteButton.__proto__ || Object.getPrototypeOf(DeleteButton)).call(this));
 	
-	    _this.deleteNewsFunction = _this.deleteNewsFunction.bind(_this);
+	    _this.deleteRepoFunction = _this.deleteRepoFunction.bind(_this);
 	    _this.showAlert = _this.showAlert.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(DeleteButton, [{
-	    key: "deleteNewsFunction",
-	    value: function deleteNewsFunction() {
+	    key: "deleteRepoFunction",
+	    value: function deleteRepoFunction() {
 	      var that = this;
 	      $.ajax({
 	        url: "http://localhost:8080/repos/delete",
@@ -13536,7 +13536,7 @@
 	        null,
 	        _react2.default.createElement(
 	          "button",
-	          { className: "btn-warning", onClick: this.deleteNewsFunction },
+	          { className: "btn-warning", onClick: this.deleteRepoFunction },
 	          "Delete"
 	        )
 	      );
@@ -13659,7 +13659,9 @@
 	                  this.props.item.language
 	                )
 	              ),
-	              React.createElement(_DeleteButton2.default, { item: repoItem })
+	              React.createElement(_DeleteButton2.default, { item: repoItem, functionUpdate: this.updateRepoArray }),
+	              '\xA0\xA0\xA0\xA0\xA0',
+	              React.createElement(_UpdateComponent2.default, { item: repoItem })
 	            )
 	          )
 	        )
@@ -15032,22 +15034,22 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var DeleteButton = function (_React$Component) {
-	  _inherits(DeleteButton, _React$Component);
+	var UpdateButton = function (_React$Component) {
+	  _inherits(UpdateButton, _React$Component);
 	
-	  function DeleteButton() {
-	    _classCallCheck(this, DeleteButton);
+	  function UpdateButton() {
+	    _classCallCheck(this, UpdateButton);
 	
-	    var _this = _possibleConstructorReturn(this, (DeleteButton.__proto__ || Object.getPrototypeOf(DeleteButton)).call(this));
+	    var _this = _possibleConstructorReturn(this, (UpdateButton.__proto__ || Object.getPrototypeOf(UpdateButton)).call(this));
 	
 	    _this.State = { comments: "Default" };
-	    _this.updateNewsFunction = _this.updateNewsFunction.bind(_this);
+	    _this.updateRepoFunction = _this.updateRepoFunction.bind(_this);
 	    _this.showAlert = _this.showAlert.bind(_this);
 	    _this.checkValue = _this.checkValue.bind(_this);
 	    return _this;
 	  }
 	
-	  _createClass(DeleteButton, [{
+	  _createClass(UpdateButton, [{
 	    key: "checkValue",
 	    value: function checkValue(event) {
 	      var val = event.target.value;
@@ -15056,23 +15058,23 @@
 	      console.log("updated Comment " + this.props.item.comments);
 	    }
 	  }, {
-	    key: "updateNewsFunction",
-	    value: function updateNewsFunction() {
+	    key: "updateRepoFunction",
+	    value: function updateRepoFunction() {
 	      var that = this;
 	      console.log("inside Update Function");
 	      console.log(that.props.item.comments);
 	      $.ajax({
-	        url: "http://localhost:8080/news/update",
+	        url: "http://localhost:8080/repo/update",
 	        type: "PUT",
 	        data: that.props.item,
 	        success: function success(msg) {
 	          /*msg represents JSON data of news headlines sent back by external API*/
-	          console.log("delete success");
+	          console.log("update success");
 	          console.log(msg);
 	          that.showAlert(msg);
 	        },
 	        error: function error(err) {
-	          console.log("inside delete error");
+	          console.log("inside update error");
 	          console.log(err);
 	        }
 	      });
@@ -15087,20 +15089,20 @@
 	    value: function render() {
 	      console.log("UPDATE COMPONENT");
 	      console.log(this.props.item);
-	      var itemNews = this.props.item;
-	      var idNe = this.props.item._id;
-	      var idNews = "#" + this.props.item._id;
+	      var itemRepo = this.props.item;
+	      var idRe = this.props.item._id;
+	      var idRepo = "#" + this.props.item._id;
 	      return _react2.default.createElement(
 	        "span",
 	        null,
 	        _react2.default.createElement(
 	          "a",
-	          { href: idNews, role: "button", className: "btn btn-warning", "data-toggle": "modal" },
+	          { href: idRepo, role: "button", className: "btn btn-warning", "data-toggle": "modal" },
 	          "Update"
 	        ),
 	        _react2.default.createElement(
 	          "section",
-	          { className: "modal fade", id: idNe },
+	          { className: "modal fade", id: idRe },
 	          _react2.default.createElement(
 	            "article",
 	            { className: "modal-dialog" },
@@ -15118,13 +15120,13 @@
 	                _react2.default.createElement(
 	                  "h4",
 	                  { className: "modal-title" },
-	                  itemNews.title
+	                  itemRepo.title
 	                )
 	              ),
 	              _react2.default.createElement(
 	                "article",
 	                { className: "modal-body" },
-	                _react2.default.createElement("img", { src: itemNews.urlToImage, width: "250", height: "100", alt: "Image of news" }),
+	                _react2.default.createElement("img", { src: itemRepo.avatar_url, width: "250", height: "100", alt: "Image of news" }),
 	                _react2.default.createElement("hr", null),
 	                _react2.default.createElement(
 	                  "form",
@@ -15135,7 +15137,7 @@
 	                    _react2.default.createElement(
 	                      "label",
 	                      { className: "col-lg-2 control-label", "for": "newsDescription" },
-	                      "Description"
+	                      "Name"
 	                    ),
 	                    _react2.default.createElement(
 	                      "article",
@@ -15143,7 +15145,7 @@
 	                      _react2.default.createElement(
 	                        "textarea",
 	                        { className: "form-control", id: "newsDescription", rows: "5", disabled: true },
-	                        itemNews.description
+	                        itemRepo.name
 	                      )
 	                    )
 	                  ),
@@ -15161,7 +15163,7 @@
 	                      _react2.default.createElement(
 	                        "textarea",
 	                        { className: "form-control", id: "newsComments", rows: "4", onChange: this.checkValue },
-	                        itemNews.comments
+	                        itemRepo.comments
 	                      )
 	                    )
 	                  )
@@ -15172,7 +15174,7 @@
 	                { className: "modal-footer" },
 	                _react2.default.createElement(
 	                  "button",
-	                  { className: "btn btn-success pull-right", "data-dismiss": "modal", type: "submit", onClick: this.updateNewsFunction },
+	                  { className: "btn btn-success pull-right", "data-dismiss": "modal", type: "submit", onClick: this.updateRepoFunction },
 	                  "Submit"
 	                )
 	              )
@@ -15183,10 +15185,10 @@
 	    }
 	  }]);
 	
-	  return DeleteButton;
+	  return UpdateButton;
 	}(_react2.default.Component);
 	
-	exports.default = DeleteButton;
+	exports.default = UpdateButton;
 
 /***/ },
 /* 128 */
@@ -15231,7 +15233,7 @@
 		_createClass(ViewRepoManager, [{
 			key: 'updateArray',
 			value: function updateArray(item) {
-				this.props.RepoArrUpdate(item);
+				this.props.repoArrUpdate(item);
 			}
 		}, {
 			key: 'render',

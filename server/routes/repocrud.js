@@ -13,8 +13,6 @@ if(err)
 var userver=new git();
  if(req.body){
 
-  var ownerObject = req.body.owner;
-
  userver.id=req.body.id;
  userver.name=req.body.name;
  userver.full_name=req.body.full_name;
@@ -28,6 +26,8 @@ userver.clone_url=req.body.clone_url;
 userver.svn_url=req.body.svn_url;
 userver.description=req.body.description;
 userver.language=req.body.language;
+userver.comments = req.body.comments;
+
  userver.save(function(err){if(err){
 
    res.send('Error in database');
@@ -81,21 +81,13 @@ router.get('/view',function(req,res)
 //end point http://localhost:8085/repo/update
 router.put('/update',isLoggedIn,function(req,res)
 {
-  if(req.body)
-    {
-   var  request1=req.body.id;
-     var request2=req.body.Comments;
-    git.update({id:request1},{$set:{Comments:request2}},function(err){
+  console.log("inside update");
+  news.findByIdAndUpdate(req.body._id, {comment:req.body.comments}, function(err, news) {
+    if (err) throw err;
 
-        if(err) {
-          res.send(err);
-        }
-        else  {
-        res.send("comments updated");
-        }
+  // we have the updated user returned to us
+  res.send("NEWS UPDAted successfully");
       });
-    }
-
 });
 
 

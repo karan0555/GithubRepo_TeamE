@@ -8,7 +8,7 @@ export default class ViewRepoManager extends React.Component{
 		this.updateArray = this.updateArray.bind(this);		
 	}
 	updateArray(item){
-		this.props.RepoArrUpdate(item);
+		this.props.repoArrUpdate(item);
 	}
 	render(){
 		console.log("Inside View Repo Manager ");

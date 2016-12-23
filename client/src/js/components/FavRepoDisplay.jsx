@@ -31,7 +31,8 @@ var repoItem = this.props.item;
           <h4>ssh : {this.props.item.ssh_url}</h4>
           <h5>Clone Url : {this.props.item.clone_url}</h5>
           <h2><b>Language {this.props.item.language}</b></h2>
-          <DeleteButton item={repoItem}/>
+          <DeleteButton item={repoItem} functionUpdate={this.updateRepoArray}/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <UpdateComponent item={repoItem}/>
         </article>
       </section>      
     </section>
